@@ -1,0 +1,102 @@
+[gd_scene load_steps=4 format=3 uid="uid://k3ydumfqp0b4"]
+
+[ext_resource type="Script" uid="uid://cs54axkt7nwa4" path="res://node_2d.gd" id="1_epypp"]
+[ext_resource type="Texture2D" uid="uid://c0a7xmqysgpwn" path="res://assets/box-closed.png" id="2_0hol4"]
+[ext_resource type="Texture2D" uid="uid://cx2mxhsiwq33s" path="res://assets/box-open.png" id="3_q6r6c"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_epypp")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="Timer" type="Label" parent="."]
+offset_right = 1152.0
+offset_bottom = 165.0
+theme_override_font_sizes/font_size = 80
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Box-closed" type="Sprite2D" parent="."]
+position = Vector2(576, 284)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("2_0hol4")
+
+[node name="Box-open" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(576, 320)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("3_q6r6c")
+
+[node name="Result-alive" type="Label" parent="."]
+visible = false
+offset_left = 520.0
+offset_top = 280.0
+offset_right = 632.0
+offset_bottom = 336.0
+theme_override_colors/font_color = Color(0.486275, 0.988235, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Alive"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Result-dead" type="Label" parent="."]
+visible = false
+offset_left = 520.0
+offset_top = 280.0
+offset_right = 632.0
+offset_bottom = 336.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Dead"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Indicator" type="ColorRect" parent="."]
+offset_left = 448.0
+offset_top = 416.0
+offset_right = 704.0
+offset_bottom = 466.0
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="State-alive" type="ColorRect" parent="Indicator"]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+color = Color(0.486275, 0.988235, 0, 1)
+
+[node name="State-dead" type="ColorRect" parent="Indicator"]
+offset_left = 206.0
+offset_right = 256.0
+offset_bottom = 50.0
+color = Color(1, 0, 0, 1)
+
+[node name="stateInterval" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="countInterval" type="Timer" parent="."]
+wait_time = 0.01
+autostart = true
+
+[node name="OpenBtn" type="Button" parent="."]
+offset_left = 512.0
+offset_top = 520.0
+offset_right = 640.0
+offset_bottom = 560.0
+text = "OPEN"
+
+[node name="ResetBtn" type="Button" parent="."]
+offset_left = 27.0
+offset_top = 583.0
+offset_right = 155.0
+offset_bottom = 623.0
+text = "RESET"
+
+[connection signal="timeout" from="stateInterval" to="." method="stateInterval"]
+[connection signal="timeout" from="countInterval" to="." method="countInterval"]
+[connection signal="pressed" from="OpenBtn" to="." method="stop"]
+[connection signal="pressed" from="ResetBtn" to="." method="reset"]
